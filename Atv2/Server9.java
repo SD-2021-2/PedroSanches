@@ -3,10 +3,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class Server2 extends Thread {
+public class Server9 extends Thread {
 	private Socket concurrentSocket;
 
-	public Server2(Socket clientSocket) {
+	public Server9(Socket clientSocket) {
 		this.concurrentSocket = clientSocket;
 	}
 
@@ -17,7 +17,7 @@ public class Server2 extends Thread {
 			while (true){
 				Socket clientSocket = serverSocket.accept();
 				System.out.println("Cliente conectado:"+clientSocket);
-				Server2 client = new Server2(clientSocket);
+				Server9 client = new Server9(clientSocket);
 				client.start();
 			}
 		} catch (IOException i){}
@@ -30,21 +30,14 @@ public class Server2 extends Thread {
 			OutputStream outputStream = concurrentSocket.getOutputStream();
 			PrintWriter out =new PrintWriter(outputStream, true);
 
-			String Nome = scanner.nextLine();
-			String Sexo = scanner.nextLine();
-			String Idade = scanner.nextLine();
-			String maioridade = " É menor de idade";
-			if(Sexo.equals("masculino")){
-				if(Integer.parseInt(Idade)>=18){
-					maioridade = " É maior de idade";
-				}
-			}else if(Sexo.equals("feminino")){
-				if(Integer.parseInt(Idade)>=21){
-					maioridade = " É maior de idade";
-				}
-			}
+			String num1 = scanner.nextLine();
+			String num2 = scanner.nextLine();
 			
-			out.println("A pessoa: "+Nome+maioridade);
+			int num1aux = Integer.parseInt(num1);
+			int num2aux = Integer.parseInt(num2);
+			Carta aux =  new Carta();
+
+			out.println(aux.toString(num1aux,num2aux));
 		} catch (IOException i){}
 	}
 

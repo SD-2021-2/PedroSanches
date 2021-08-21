@@ -18,6 +18,6 @@ print("Digite o Salario do Funcionario: ")
 salario = input()
 s.sendall((salario+'\n').encode())
 
-resposta = s.recv(1024)
+resposta = s.recv(1024).decode()
 print(resposta)
 

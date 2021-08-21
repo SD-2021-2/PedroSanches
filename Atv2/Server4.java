@@ -3,10 +3,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class Server2 extends Thread {
+public class Server4 extends Thread {
 	private Socket concurrentSocket;
 
-	public Server2(Socket clientSocket) {
+	public Server4(Socket clientSocket) {
 		this.concurrentSocket = clientSocket;
 	}
 
@@ -17,7 +17,7 @@ public class Server2 extends Thread {
 			while (true){
 				Socket clientSocket = serverSocket.accept();
 				System.out.println("Cliente conectado:"+clientSocket);
-				Server2 client = new Server2(clientSocket);
+				Server4 client = new Server4(clientSocket);
 				client.start();
 			}
 		} catch (IOException i){}
@@ -30,21 +30,23 @@ public class Server2 extends Thread {
 			OutputStream outputStream = concurrentSocket.getOutputStream();
 			PrintWriter out =new PrintWriter(outputStream, true);
 
-			String Nome = scanner.nextLine();
-			String Sexo = scanner.nextLine();
-			String Idade = scanner.nextLine();
-			String maioridade = " É menor de idade";
-			if(Sexo.equals("masculino")){
-				if(Integer.parseInt(Idade)>=18){
-					maioridade = " É maior de idade";
-				}
-			}else if(Sexo.equals("feminino")){
-				if(Integer.parseInt(Idade)>=21){
-					maioridade = " É maior de idade";
-				}
+			String alt = scanner.nextLine();
+			String sex = scanner.nextLine();
+			
+			float peso;
+			float altura= Float.parseFloat(alt);
+			String pesof;
+			if(sex.equals("masculino")){
+				peso=(float) ((altura*72.7)-58);
+				pesof=Float.toString(peso);
+			}else if(sex.equals("feminino")){
+				peso=(float) ((altura*62.1)-44.7);
+				pesof=Float.toString(peso);
+			}else{
+				pesof=("Sexo não identificado");
 			}
 			
-			out.println("A pessoa: "+Nome+maioridade);
+			out.println(pesof);
 		} catch (IOException i){}
 	}
 

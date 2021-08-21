@@ -3,10 +3,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class Server2 extends Thread {
+public class Server3 extends Thread {
 	private Socket concurrentSocket;
 
-	public Server2(Socket clientSocket) {
+	public Server3(Socket clientSocket) {
 		this.concurrentSocket = clientSocket;
 	}
 
@@ -17,7 +17,7 @@ public class Server2 extends Thread {
 			while (true){
 				Socket clientSocket = serverSocket.accept();
 				System.out.println("Cliente conectado:"+clientSocket);
-				Server2 client = new Server2(clientSocket);
+				Server3 client = new Server3(clientSocket);
 				client.start();
 			}
 		} catch (IOException i){}
@@ -30,21 +30,23 @@ public class Server2 extends Thread {
 			OutputStream outputStream = concurrentSocket.getOutputStream();
 			PrintWriter out =new PrintWriter(outputStream, true);
 
-			String Nome = scanner.nextLine();
-			String Sexo = scanner.nextLine();
-			String Idade = scanner.nextLine();
-			String maioridade = " É menor de idade";
-			if(Sexo.equals("masculino")){
-				if(Integer.parseInt(Idade)>=18){
-					maioridade = " É maior de idade";
-				}
-			}else if(Sexo.equals("feminino")){
-				if(Integer.parseInt(Idade)>=21){
-					maioridade = " É maior de idade";
-				}
+			String sn1 = scanner.nextLine();
+			String sn2 = scanner.nextLine();
+			String sn3 = scanner.nextLine();
+			String foi_aprovado = "Reprovado";
+			int n1 = Integer.parseInt(sn1);
+			int n2 = Integer.parseInt(sn2);
+			int n3 = Integer.parseInt(sn3);
+			float m1 = (n1+n2)/2;
+			float m2 = (m1+n3)/2;
+
+			if(m1>=7){
+				foi_aprovado="Aprovado";
+			}else if(m1>=3 & m2>=5 ){
+				foi_aprovado="Aprovado";
 			}
 			
-			out.println("A pessoa: "+Nome+maioridade);
+			out.println(foi_aprovado);
 		} catch (IOException i){}
 	}
 

@@ -3,10 +3,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class Server2 extends Thread {
+public class Server5 extends Thread {
 	private Socket concurrentSocket;
 
-	public Server2(Socket clientSocket) {
+	public Server5(Socket clientSocket) {
 		this.concurrentSocket = clientSocket;
 	}
 
@@ -17,7 +17,7 @@ public class Server2 extends Thread {
 			while (true){
 				Socket clientSocket = serverSocket.accept();
 				System.out.println("Cliente conectado:"+clientSocket);
-				Server2 client = new Server2(clientSocket);
+				Server5 client = new Server5(clientSocket);
 				client.start();
 			}
 		} catch (IOException i){}
@@ -30,21 +30,24 @@ public class Server2 extends Thread {
 			OutputStream outputStream = concurrentSocket.getOutputStream();
 			PrintWriter out =new PrintWriter(outputStream, true);
 
-			String Nome = scanner.nextLine();
-			String Sexo = scanner.nextLine();
-			String Idade = scanner.nextLine();
-			String maioridade = " É menor de idade";
-			if(Sexo.equals("masculino")){
-				if(Integer.parseInt(Idade)>=18){
-					maioridade = " É maior de idade";
-				}
-			}else if(Sexo.equals("feminino")){
-				if(Integer.parseInt(Idade)>=21){
-					maioridade = " É maior de idade";
-				}
+			String ida = scanner.nextLine();
+			String categoria;
+			int idade= Integer.parseInt(ida);
+			if(idade>=18){
+				categoria="Maior de idade";
+			}else if(idade>=14){
+				categoria="Juvenil B";
+			}else if(idade>=11){
+				categoria="Juvenil A";
+			}else if(idade>=8){
+				categoria="Infantil B";
+			}else if(idade>=5){
+				categoria="Infantil A";
+			}else{
+				categoria="Não existe";
 			}
 			
-			out.println("A pessoa: "+Nome+maioridade);
+			out.println(categoria);
 		} catch (IOException i){}
 	}
 
