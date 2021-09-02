@@ -39,10 +39,11 @@ public class Server1 extends Thread {
 			
 		
 			//Enviando a requisição para o DB	
-			try (OutputStreamWriter outS = new OutputStreamWriter(
-				myClient.getOutputStream())) {
-				outS.write(Nome);
-			}
+			OutputStreamWriter outS = new OutputStreamWriter(myClient.getOutputStream());
+			BufferedWriter bw = new BufferedWriter(outS);
+			bw.write(Nome);
+			bw.flush(); 
+			
 
 			//Recebendo os dados do DB
 			InputStream inputStream = myClient.getInputStream();
@@ -53,9 +54,7 @@ public class Server1 extends Thread {
 
 			//String Cargo= "Operador";
 			//String Salario= "123";
-
-
-			System.out.println(Cargo);
+			//System.out.println(Cargo);
 
 			float salajuste1;
 			if(Cargo.equals("Operador")){
@@ -70,7 +69,11 @@ public class Server1 extends Thread {
 			}
 			
 			out.println("Nome: "+Nome+". Salario ajustado: R$"+Float.toString(salajuste1));
-	
+			
+			bw.close();
+			myClient.close();
+			scanner.close();
+			scanner1.close();
 		} catch (IOException i){}
 	}
 

@@ -26,12 +26,13 @@ p2= Pessoa('Sergio','Programador', 2220)
 
 
 while True:
-    nome = conn.recv(1024)
-    retorno='Nada definido'
+    nome = conn.recv(1024).decode()
+    
+    retorno='Nome não econtrado! Entre com um nome existente!'
 
-    if(nome.decode()==p1.nome):
+    if(nome==p1.nome):
         retorno=p1.cargo + '\n' + str(p1.salario) + '\n'
-    if (nome.decode()==p2.nome):
+    if (nome==p2.nome):
         retorno=p2.cargo + '\n' + str(p2.salario) + '\n'
 
     conn.send(retorno.encode('utf8'))
