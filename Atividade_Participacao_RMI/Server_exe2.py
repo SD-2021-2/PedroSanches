@@ -18,11 +18,16 @@ class funcaoremota(object):
             else:
                 return "Informação inconstante"
 
-
-daemon = Pyro4.Daemon()                
-ns = Pyro4.locateNS()                  
+daemon = Pyro4.Daemon()               
+ns = Pyro4.locateNS()                 
 uri = daemon.register(funcaoremota)   
-ns.register("funcaoremota", uri)   
+ns.register("funcaoremota", uri)  
 
-print("Ready.")
-daemon.requestLoop() 
+print("Escutando...")
+daemon.requestLoop()  
+
+#daemon = Pyro4.Daemon()                
+#uri = daemon.register(funcaoremota)    
+
+#print("Escutando... objeto uri =", uri)
+#daemon.requestLoop() 
